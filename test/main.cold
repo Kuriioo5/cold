@@ -1,6 +1,4 @@
-use std.io;
-
-main() 
+main()
 {
-  std.io.println("Hello, world");
+  println("Hello, world!");
 }

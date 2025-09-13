@@ -10,11 +10,14 @@ typedef enum
   TOK_LITERAL,
   TOK_NUMBER,
   TOK_SEMI,
-  TOK_RETURN,
   TOK_LPAREN,
   TOK_RPAREN,
   TOK_LBRACE,
-  TOK_RBRACE
+  TOK_RBRACE,
+  TOK_DOT,
+  TOK_RETURN,
+  TOK_USE,
+  TOK_FUNCTION
 } TokenType;
 
 typedef struct

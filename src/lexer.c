@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 static void add_token(Lexer *lexer, TokenType type, char *value);
 static void handle_identifier(Lexer *lexer);
@@ -42,8 +43,14 @@ Lexer *init_lexer(char *src)
         add_token(lexer, TOK_RPAREN, ")");
         break;
       case '.':
-        //TODO: 
+        add_token(lexer, TOK_DOT, ".");
+        break;
       default:
+        if(isalpha(*lexer->cur_tok))
+        {
+          handle_identifier(lexer);
+          continue;
+        }
         break;
     }
 
@@ -73,6 +80,33 @@ static void add_token(Lexer *lexer, TokenType type, char *value)
   lexer->tokens[lexer->count].type = type;
   lexer->tokens[lexer->count].value = value;
   lexer->count++;
+}
+
+static void handle_identifier(Lexer *lexer)
+{
+  char *start = lexer->cur_tok;
+
+  while(isalnum(*lexer->cur_tok))
+    lexer->cur_tok++;
+
+  int len = lexer->cur_tok - start;
+  char *buffer = malloc(len + 1);
+
+  strncpy(buffer, start, len);
+  buffer[len] = '\0';
+
+  if(strcmp(buffer, "return")) 
+  {
+    add_token(lexer, TOK_RETURN, buffer);
+  }
+  else if(strcmp(buffer, "use"))
+  {
+    add_token(lexer, TOK_USE, buffer);
+  }
+  else
+  {
+    add_token(lexer, TOK_IDENT, buffer);
+  }
 }
 
 void free_lexer(Lexer *lexer)
