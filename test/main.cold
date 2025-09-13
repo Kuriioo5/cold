@@ -1,0 +1,6 @@
+use std.io;
+
+main() 
+{
+  std.io.println("Hello, world");
+}
