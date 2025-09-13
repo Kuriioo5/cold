@@ -5,6 +5,7 @@
 #include <string.h>
 
 static void add_token(Lexer *lexer, TokenType type, char *value);
+static void handle_identifier(Lexer *lexer);
 
 Lexer *init_lexer(char *src)
 {
