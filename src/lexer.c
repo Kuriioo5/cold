@@ -112,4 +112,5 @@ static void handle_identifier(Lexer *lexer)
 void free_lexer(Lexer *lexer)
 {
   free(lexer->tokens);
+  free(lexer);
 }

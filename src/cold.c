@@ -1,5 +1,7 @@
 #include "cold.h"
 #include "lexer.h"
+#include "parser.h"
+#include "platform.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,6 +13,12 @@ static void help_message()
 
 int main(int argc, char **argv)
 {
+  if(get_platform() == PLATFORM_UNSUPPORTED)
+  {
+    printf("This platform is not supported.\n");
+    return 1;
+  }
+
   if(argc < 2)
   {
     help_message();
@@ -40,15 +48,16 @@ int main(int argc, char **argv)
   fclose(file);
 
   Lexer *lexer = init_lexer(buffer);
+  Parser *parser = init_parser(lexer);
 
-  for(int i = 0; i < lexer->count; i++)
-  {
-    printf("Type: %i ; Value: %s\n", lexer->tokens[i].type, lexer->tokens[i].value);
-  }
+  // for(int i = 0; i < lexer->count; i++)
+  // {
+  //   printf("Type: %i ; Value: %s\n", lexer->tokens[i].type, lexer->tokens[i].value);
+  // }
   
   free(buffer);
   free_lexer(lexer);
-  free(lexer);
-
+  free(parser);
+  
   return 0;
 }
