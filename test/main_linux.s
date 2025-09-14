@@ -3,7 +3,7 @@
   .section .rodata.str1.1,"aMS",@progbits,1
 .LC0:
   .string "Hello, world!"
-  .text
+  .section .text.startup,"ax",@progbits
   .p2align 4
   .globl main
   .type main, @function
